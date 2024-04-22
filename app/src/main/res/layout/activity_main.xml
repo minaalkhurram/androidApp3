@@ -52,7 +52,25 @@
         android:layout_marginRight="10dp"
         android:fontFamily="monospace"
         android:hint="Enter Password "
-        android:textColor="@color/darkText"></EditText>
+        android:textColor="@color/darkText">
+
+    </EditText>
+
+
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/darkPurple"
+        android:fontFamily="monospace"
+        android:text="Log In"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold">
+
+    </Button>
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,9 +86,9 @@
     </TextView>
 
     <Button
-        android:id="@+id/signUpbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/singUpbtn"
+        android:layout_width="266dp"
+        android:layout_height="58dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/darkPurple"
