@@ -23,11 +23,11 @@ public class usersDB {
     public final static String row_password = "_password";
 
     public final static String password_row_id = "_id";
-    public final static String password_row_userid="_userid";
+    public final static String password_row_userid = "_userid";
     public final static String password_row_username = "_username";
     public final static String password_row_password = "_password";
     public final static String password_row_url = "_url";
-    public final static String password_row_flag="_deleteFlag";
+    public final static String password_row_flag = "_deleteFlag";
 
     public Context myContext;
 
@@ -55,12 +55,12 @@ public class usersDB {
 
             String passwordTableQuery = "CREATE TABLE " + PASSWORDS_TABLE + "(" +
                     password_row_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    password_row_userid+"INTEGER NOT NULL, " +
+                    password_row_userid + " INTEGER NOT NULL, " +
                     password_row_username + " TEXT NOT NULL, " +
                     password_row_password + " TEXT NOT NULL, " +
                     password_row_url + " TEXT NOT NULL, " +
-                    password_row_flag+"INTEGER NOT NULL,"+
-                    "FOREIGN KEY(userId) REFERENCES " + USERS_TABLE + "(" + row_id + "));";
+                    password_row_flag + " INTEGER NOT NULL, " +
+                    "FOREIGN KEY(" + password_row_userid + ") REFERENCES " + USERS_TABLE + "(" + row_id + "));";
 
             db.execSQL(userTableQuery);
             db.execSQL(passwordTableQuery);
@@ -90,22 +90,20 @@ public class usersDB {
         mydb.insert(USERS_TABLE, null, values);
     }
 
-    public void addPassword(String myUser,String username, String password, String url) {
+    public void addPassword(String myUser, String username, String password, String url) {
         ContentValues values = new ContentValues();
 
-        int id=getUserid(myUser);
+        int id = getUserid(myUser);
 
-        values.put(password_row_username,id);
+        values.put(password_row_userid, id);
         values.put(password_row_username, username);
         values.put(password_row_password, password);
         values.put(password_row_url, url);
 
-
         mydb.insert(PASSWORDS_TABLE, null, values);
     }
 
-    public boolean usernameExists(String uname)
-    {
+    public boolean usernameExists(String uname) {
         String[] columns = {row_id};
 
         // Define the selection criteria
@@ -115,17 +113,14 @@ public class usersDB {
         // Execute the query
         Cursor cursor = mydb.query(USERS_TABLE, columns, selection, selectionArgs, null, null, null);
 
-
         boolean usernameExists = cursor.getCount() > 0;
 
         cursor.close();
 
-
         return usernameExists;
     }
 
-    private int getUserid(String username)
-    {
+    private int getUserid(String username) {
         String selection = row_username + "=?";
         String[] selectionArgs = {username};
 
@@ -135,7 +130,7 @@ public class usersDB {
         // Check if the query returned any rows
         if (cursor.moveToFirst()) {
             // Retrieve the user ID from the cursor
-            int userId = cursor.getColumnIndex(row_id);
+            int userId = cursor.getInt(cursor.getColumnIndex(row_id));
 
             // Close the cursor
             cursor.close();
@@ -148,8 +143,7 @@ public class usersDB {
         }
     }
 
-    public boolean verifyUser(String username,String password)
-    {
+    public boolean verifyUser(String username, String password) {
         String[] columns = {row_id};
 
         // Define the selection criteria

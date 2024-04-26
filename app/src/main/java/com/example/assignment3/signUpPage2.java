@@ -27,7 +27,7 @@ public class signUpPage2 extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_page2);
         init();
         usersDB db=new usersDB(con);
-
+        db.open();
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +45,7 @@ public class signUpPage2 extends AppCompatActivity {
                         Intent intent=new Intent(signUpPage2.this,UserActivity.class);
                         intent.putExtra("username",uname);
                         startActivity(intent);
+                        db.close();
                         finish();
                     }
 
