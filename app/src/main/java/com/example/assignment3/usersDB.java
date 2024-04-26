@@ -99,6 +99,8 @@ public class usersDB {
         values.put(password_row_username, username);
         values.put(password_row_password, password);
         values.put(password_row_url, url);
+        // 1 means not in bin and 0 means in bin
+        values.put(password_row_flag,1);
 
         mydb.insert(PASSWORDS_TABLE, null, values);
     }
@@ -130,7 +132,7 @@ public class usersDB {
         // Check if the query returned any rows
         if (cursor.moveToFirst()) {
             // Retrieve the user ID from the cursor
-            int userId = cursor.getInt(cursor.getColumnIndex(row_id));
+            int userId = cursor.getColumnIndex(row_id);
 
             // Close the cursor
             cursor.close();

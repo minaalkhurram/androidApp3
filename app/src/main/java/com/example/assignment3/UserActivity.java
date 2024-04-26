@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class UserActivity extends AppCompatActivity {
 
     ImageButton arrowBtn;
-    TextView userDisplay;
+    TextView userDisplay,passtxt,addPasstxt,binTxt;
 
     usersDB mydb;
     String myUser;
@@ -45,12 +45,25 @@ public class UserActivity extends AppCompatActivity {
                 showLogoutDialog();
             }
         });
+        addPasstxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(UserActivity.this, addPasswordActivity.class);
+                intent.putExtra("username", myUser);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void init()
     {
         userDisplay=findViewById(R.id.userDisplay);
         arrowBtn=findViewById(R.id.arrow);
+        passtxt=findViewById(R.id.passwordstxt);
+        addPasstxt=findViewById(R.id.addTxt);
+        binTxt=findViewById(R.id.binTxt);
+
 
 
     }
