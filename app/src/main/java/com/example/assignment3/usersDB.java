@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
+import android.util.Log;
 
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class usersDB {
 
@@ -91,14 +94,16 @@ public class usersDB {
     }
 
     public void addPassword(String myUser, String username, String password, String url) {
-        ContentValues values = new ContentValues();
-
         int id = getUserid(myUser);
+        ContentValues values = new ContentValues();
+        Log.d("Database2", "Username: " + username + ", Password: " + password + ", URL: " + url);
+
+
 
         values.put(password_row_userid, id);
-        values.put(password_row_username, username);
+        values.put(password_row_username,username);
         values.put(password_row_password, password);
-        values.put(password_row_url, url);
+        values.put(password_row_url,url);
         // 1 means not in bin and 0 means in bin
         values.put(password_row_flag,1);
 
@@ -123,27 +128,24 @@ public class usersDB {
     }
 
     private int getUserid(String username) {
+
         String selection = row_username + "=?";
         String[] selectionArgs = {username};
 
-        // Execute the query
-        Cursor cursor = mydb.query(USERS_TABLE, new String[]{row_id}, selection, selectionArgs, null, null, null);
+        Cursor cursor = mydb.rawQuery("SELECT " + row_id + " FROM " + USERS_TABLE + " WHERE " + selection, selectionArgs);
 
-        // Check if the query returned any rows
+        int userId = -1; // Default value if no user found
+
+        int index=cursor.getColumnIndex(row_id);
         if (cursor.moveToFirst()) {
-            // Retrieve the user ID from the cursor
-            int userId = cursor.getColumnIndex(row_id);
-
-            // Close the cursor
-            cursor.close();
-
-            // Return the user ID
-            return userId;
-        } else {
-            // If no rows found, return -1 to indicate failure
-            return -1;
+            userId = cursor.getInt(index);
         }
+
+        cursor.close();
+
+        return userId;
     }
+
 
     public boolean verifyUser(String username, String password) {
         String[] columns = {row_id};
@@ -162,5 +164,93 @@ public class usersDB {
 
         return matchFound;
     }
+
+    public ArrayList<UserData> getAllUserPasswords(String userName) {
+        int myid = getUserid(userName);
+        ArrayList<UserData> userPasswords = new ArrayList<>();
+
+        String query = "SELECT " + password_row_username + ", " + password_row_password + ", " + password_row_url +
+                " FROM " + PASSWORDS_TABLE +
+                " WHERE " + password_row_userid + " = ? AND " +
+        password_row_flag + " = 1";
+        String[] selectionArgs = {String.valueOf(myid)};
+
+        Cursor cursor = mydb.rawQuery(query, selectionArgs);
+        int index1 = cursor.getColumnIndexOrThrow(password_row_username);
+        int index2 = cursor.getColumnIndexOrThrow(password_row_password);
+        int index3 = cursor.getColumnIndexOrThrow(password_row_url);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String username = cursor.getString(index1);
+                String password = cursor.getString(index2);
+                String url = cursor.getString(index3);
+
+                UserData userData = new UserData(username, password, url);
+                userPasswords.add(userData);
+                Log.d("Database", "Username: " + username + ", Password: " + password + ", URL: " + url);
+
+            } while (cursor.moveToNext());
+        }
+
+       cursor.close();
+        return userPasswords;
+    }
+
+    public ArrayList<UserData> getrecycleBin(String userName) {
+        int myid = getUserid(userName);
+        ArrayList<UserData> userPasswords = new ArrayList<>();
+
+        String query = "SELECT " + password_row_username + ", " + password_row_password + ", " + password_row_url +
+                " FROM " + PASSWORDS_TABLE +
+                " WHERE " + password_row_userid + " = ? AND " +
+                password_row_flag + " = 0";
+        String[] selectionArgs = {String.valueOf(myid)};
+
+        Cursor cursor = mydb.rawQuery(query, selectionArgs);
+        int index1 = cursor.getColumnIndexOrThrow(password_row_username);
+        int index2 = cursor.getColumnIndexOrThrow(password_row_password);
+        int index3 = cursor.getColumnIndexOrThrow(password_row_url);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String username = cursor.getString(index1);
+                String password = cursor.getString(index2);
+                String url = cursor.getString(index3);
+
+                UserData userData = new UserData(username, password, url);
+                userPasswords.add(userData);
+                Log.d("Database", "Username: " + username + ", Password: " + password + ", URL: " + url);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return userPasswords;
+    }
+    public void updatePassword(String oldPassword, String oldUrl, String newUsername, String newPassword, String newUrl) {
+        ContentValues values = new ContentValues();
+        values.put(password_row_username, newUsername);
+        values.put(password_row_password, newPassword);
+        values.put(password_row_url, newUrl);
+
+        String selection = password_row_password + "=? AND " + password_row_url + "=?";
+        String[] selectionArgs = {oldPassword, oldUrl};
+
+        mydb.update(PASSWORDS_TABLE, values, selection, selectionArgs);
+    }
+    public void deletePass(String username, String password, String url) {
+        ContentValues values = new ContentValues();
+        values.put(password_row_flag, 0); // Set delete flag to zero
+
+        String selection = password_row_username + "=? AND " +
+                password_row_password + "=? AND " +
+                password_row_url + "=?";
+        String[] selectionArgs = {username, password, url};
+
+        mydb.update(PASSWORDS_TABLE, values, selection, selectionArgs);
+    }
+
     // Add methods for updating and deleting passwords as needed...
+
 }

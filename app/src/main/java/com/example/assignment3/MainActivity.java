@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+Log.i("checking","print msg");
 
-        Log.d("Tag", "Message to print");
+
 
 
         signupBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,19 +46,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, signUpPage2.class);
                 startActivity(intent);
+
             }
         });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String uname = userTxt.getText().toString();
                 String pass = passTxt.getText().toString();
                 if (!uname.isEmpty() && !pass.isEmpty()) {
                     if (mydb.verifyUser(uname,pass)) {
-                        Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                        intent.putExtra("username", uname);
+                        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                        intent.putExtra("username",uname);
+
                         startActivity(intent);
+                        finish();
+
+
                         mydb.close();
 
                     } else {
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Empty", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

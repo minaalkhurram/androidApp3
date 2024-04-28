@@ -42,7 +42,7 @@ public class signUpPage2 extends AppCompatActivity {
                     if(db.verifyUser(uname,pass)) {
                         Toast.makeText(con, "Account Created ! ", Toast.LENGTH_LONG).show();
 
-                        Intent intent=new Intent(signUpPage2.this,UserActivity.class);
+                        Intent intent=new Intent(signUpPage2.this, MainActivity2.class);
                         intent.putExtra("username",uname);
                         startActivity(intent);
                         db.close();
