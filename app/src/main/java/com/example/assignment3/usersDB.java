@@ -250,6 +250,17 @@ public class usersDB {
 
         mydb.update(PASSWORDS_TABLE, values, selection, selectionArgs);
     }
+    public void restorePass(String username, String password, String url) {
+        ContentValues values = new ContentValues();
+        values.put(password_row_flag, 1); // Set delete flag to zero
+
+        String selection = password_row_username + "=? AND " +
+                password_row_password + "=? AND " +
+                password_row_url + "=?";
+        String[] selectionArgs = {username, password, url};
+
+        mydb.update(PASSWORDS_TABLE, values, selection, selectionArgs);
+    }
 
     // Add methods for updating and deleting passwords as needed...
 

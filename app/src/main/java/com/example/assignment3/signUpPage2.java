@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class signUpPage2 extends AppCompatActivity {
 
-    EditText nameTxt,userTxt,passTxt,confirmpassTxt;
+    EditText nameTxt,userTxt,passTxt;
     Button confirmBtn;
     Context con;
     @Override
@@ -73,7 +73,7 @@ public class signUpPage2 extends AppCompatActivity {
         nameTxt=findViewById(R.id.nameTxt);
         userTxt=findViewById(R.id.userNameTxt);
         passTxt=findViewById(R.id.passTxt);
-        confirmpassTxt=findViewById(R.id.confirmPassTxt);
+
         confirmBtn=findViewById(R.id.confirmbtn);
 
     }
