@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="10dp"
+    android:background="@color/light2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="311dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:padding="15dp">
+
+
+            <TextView
+                android:id="@+id/usernametxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:drawablePadding="20dp"
+                android:fontFamily="monospace"
+
+                android:text="Username  "
+                android:textSize="20sp"
+                android:typeface="monospace">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/passtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+
+                android:drawablePadding="20dp"
+                android:fontFamily="monospace"
+                android:text="password"
+                android:textSize="20sp"
+                android:typeface="monospace">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/urltxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:drawablePadding="20dp"
+                android:fontFamily="monospace"
+                android:text="url "
+                android:textSize="14sp"
+                android:typeface="monospace">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+
+            <ImageButton
+                android:id="@+id/restorebtn"
+                android:layout_width="wrap_content"
+                app:tint="@color/darkPurple"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light2"
+                android:src="@drawable/editicon">
+
+            </ImageButton>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Restore "
+                android:textAlignment="center"
+                app:tint="@color/darkPurple"
+                android:textSize="15dp">
+
+            </TextView>
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

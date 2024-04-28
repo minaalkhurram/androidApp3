@@ -5,9 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightText"
     android:orientation="vertical"
-    tools:context=".signUpPage2">
+    tools:context=".addpass2">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,29 +16,18 @@
         android:layout_marginTop="80dp"
         android:fontFamily="times"
         android:textColor="@color/darkPurple"
-        android:text="Sign Up ">
+        android:text="Add Account ">
 
     </TextView>
 
-    <EditText
-        android:id="@+id/nameTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginRight="15dp"
-        android:hint="Enter Full Name "
-        android:inputType="text"
-        android:textColor="@color/darkPurple"
-        android:textSize="20dp">
-
-    </EditText>
 
     <EditText
         android:id="@+id/userNameTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="80dp"
         android:hint="Enter Username"
         android:textColor="@color/darkPurple"
         android:textSize="20dp">
@@ -54,12 +42,22 @@
         android:layout_margin="15dp"
         android:hint="Enter Paswword"
         android:textColor="@color/darkPurple"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:textSize="20dp">
 
     </EditText>
 
+    <EditText
+        android:id="@+id/urlTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="Enter Url "
+        android:textColor="@color/darkPurple"
+        android:inputType="text"
+        android:textSize="20dp">
 
+    </EditText>
 
 
     <Button
@@ -76,7 +74,6 @@
         android:textStyle="bold">
 
     </Button>
-
 
 
 </LinearLayout>
