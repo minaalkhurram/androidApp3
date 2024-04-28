@@ -73,7 +73,7 @@ public class signUpPage2 extends AppCompatActivity {
         nameTxt=findViewById(R.id.nameTxt);
         userTxt=findViewById(R.id.userNameTxt);
         passTxt=findViewById(R.id.passTxt);
-
+        //
         confirmBtn=findViewById(R.id.confirmbtn);
 
     }
