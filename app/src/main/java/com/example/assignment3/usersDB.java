@@ -262,6 +262,6 @@ public class usersDB {
         mydb.update(PASSWORDS_TABLE, values, selection, selectionArgs);
     }
 
-    // Add methods for updating and deleting passwords as needed...
+
 
 }
